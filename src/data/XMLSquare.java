@@ -137,12 +137,5 @@ public class XMLSquare {
             count++;
         }//end for
         return squaresArray;
-    }
-    public void metoo(){
-        for (int i = 0; i < 10; i++) {
-            
-        }
-    }
-    
-    
+    } 
 }
