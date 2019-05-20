@@ -6,26 +6,22 @@
 
 package threads;
 
-import domain.Square;
+import domain.Rectangle;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import utility.Variables;
 
-/**
- *
- * @author Fabian
- */
-public class SquareThread extends Thread{
+public class RectangleThreadData extends Thread{
     
     //variables
-    private Square mySquare;
+    private Rectangle myRectangle;
     private int delayTime;
 
-    public SquareThread(Square mySquare, int delayTime) {
-        super(mySquare.identification);
-        this.mySquare = mySquare;
+    public RectangleThreadData(Rectangle myRectangle, int delayTime) {
+        super(myRectangle.identification);
+        this.myRectangle = myRectangle;
         this.delayTime = delayTime;
     }
     
@@ -39,16 +35,16 @@ public class SquareThread extends Thread{
                 sleep(delayTime);
 
                 //move the object
-                int newX=mySquare.getxAxis();
-                if (newX>=(Variables.WIDTH-mySquare.getSide())) {
+                int newX=myRectangle.getxAxis();
+                if (newX>=(Variables.WIDTH-myRectangle.getWidth())) {
                     flag=false;
                 }else{
                     newX+=5;
                 }
-                mySquare.setxAxis(newX);
-                mySquare.setyAxis(mySquare.getyAxis());          
+                myRectangle.setxAxis(newX);
+                myRectangle.setyAxis(myRectangle.getyAxis());          
             } catch (InterruptedException ex) {
-                Logger.getLogger(SquareThread.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RectangleThreadData.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//end run
