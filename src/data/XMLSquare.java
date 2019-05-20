@@ -137,5 +137,6 @@ public class XMLSquare {
             count++;
         }//end for
         return squaresArray;
-    } 
+    }
+    
 }

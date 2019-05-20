@@ -40,7 +40,7 @@ public class SquareThreadData extends Thread{
 
                 //move the object
                 int newX=mySquare.getxAxis();
-                if (newX>=(Variables.WIDTH-mySquare.getSize())) {
+                if (newX>=(Variables.WIDTH-mySquare.getSide())) {
                     flag=false;
                 }else{
                     newX+=5;
