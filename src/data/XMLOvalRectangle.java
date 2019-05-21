@@ -4,7 +4,7 @@
  */
 package data;
 
-import domain.Triangle;
+import domain.ovalRectangle;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,18 +16,18 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
-public class XMLTriangle {
+public class XMLOvalRectangle {
     
     //variables
     private Document document;
     private Element root;
     private String path;
 
-    public XMLTriangle(String path) throws IOException, JDOMException {
+    public XMLOvalRectangle(String path) throws IOException, JDOMException {
         //ruta en la que se encuentra el archivo XML
         this.path = path;
-        File fileTriangle = new File(path);//esto es solo para hacer validacion
-        if(fileTriangle.exists()){
+        File fileOvalRectangle = new File(path);//esto es solo para hacer validacion
+        if(fileOvalRectangle.exists()){
             //1. EL ARCHIVO YA EXISTE, ENTONCES LO CARGO EN MEMORIA
             
             //toma la estructura de datos y las carga en memoria
@@ -42,7 +42,7 @@ public class XMLTriangle {
             //2. EL ARCHIVO NO EXISTE, ENTONCES LO CREO Y LUEGO LO CARGO EN MEMORIA
             
             //CREAMOS EL ELEMENTO RAIZ
-            this.root = new Element("squares");
+            this.root = new Element("ovalRectangle");
             
             //CREAMOS EL DOCUMENTO
             this.document = new Document(this.root);
@@ -59,33 +59,45 @@ public class XMLTriangle {
     }
     
     //metodo para insertar un nuevo cuadrado en el documento xml
-    public void insertvTriangle(Triangle triangle) throws IOException{
+    public void insertOvalRectangle(ovalRectangle rectangle) throws IOException{
         //INSERTAMOS EN EL DOCUMENTO EN MEMORIA
         //para insertar en xml, primero se crean los elementos
         
-        //crear el triangulo
-        Element eTriangle = new Element("Triangle");
+        //crear el Rectangle
+        Element eRectangle = new Element("Triangle");
         //agregamos atributo
-        eTriangle.setAttribute("identification", triangle.getIdentification());
+        eRectangle.setAttribute("identification", rectangle.getIdentification());
         
         //creamos el elemento de las posiciones
         Element eXAxis = new Element("xAxis");
-        eXAxis.addContent(String.valueOf(triangle.getxAxis()));
+        eXAxis.addContent(String.valueOf(rectangle.getxAxis()));
         
         Element eYAxis = new Element("yAxis");
-        eYAxis.addContent(String.valueOf(triangle.getyAxis()));
+        eYAxis.addContent(String.valueOf(rectangle.getyAxis()));
         
         //creamos el elemento tamaño
-        Element eSize = new Element("size");
-        eSize.addContent(String.valueOf(triangle.getSize()));
+        Element eWidth = new Element("width");
+        eWidth.addContent(String.valueOf(rectangle.getWidth()));
         
-        //agregar al elemento Triangle el contenido de tamaño2
-        eTriangle.addContent(eXAxis);
-        eTriangle.addContent(eYAxis);
-        eTriangle.addContent(eSize);
+        Element eHeight = new Element("height");
+        eHeight.addContent(String.valueOf(rectangle.getHeight()));
+        
+        Element eArcWidth=new Element("arcWidth");
+        eArcWidth.addContent(String.valueOf(rectangle.getArcWidth()));
+        
+        Element eArcHeight=new Element("arcHeight");
+        eArcHeight.addContent(String.valueOf(rectangle.getArcHeight()));
+        
+        //agregar al elemento Rectangle el contenido de tamaño2
+        eRectangle.addContent(eXAxis);
+        eRectangle.addContent(eYAxis);
+        eRectangle.addContent(eWidth);
+        eRectangle.addContent(eHeight);
+        eRectangle.addContent(eArcWidth);
+        eRectangle.addContent(eArcHeight);
         
         //AGREGAMOS AL ROOT
-        this.root.addContent(eTriangle);
+        this.root.addContent(eRectangle);
         
         //FINALMENTE: GUARDAR EN DD
         storeXML();
@@ -93,7 +105,7 @@ public class XMLTriangle {
     
     
     //delete
-    public void deleteTriangle() throws IOException{
+    public void deleteRectangle() throws IOException{
         List elementList = this.root.getChildren();
         elementList.remove(1);
         
@@ -102,40 +114,50 @@ public class XMLTriangle {
     }
     
     //metodo para obtener todos los estudiantes en un arreglo
-    public ArrayList<Triangle> getAllTriangles(){
-        //obtenemos la cantidad de cuadrados
-        int trianglesQuantity = this.root.getContentSize();
+    public ArrayList<ovalRectangle> getAllOvalRectangles(){
+        //obtenemos la cantidad de rectangulos
+        int rectanglesQuantity = this.root.getContentSize();
         //obtenemos una lista con todos los elementos de root
         List elementList = this.root.getChildren();
         
         //definimos el tamanno del arreglo
-        ArrayList<Triangle> trianglesArray = new ArrayList<>(trianglesQuantity);
+        ArrayList<ovalRectangle> rectanglesArray = new ArrayList<>(rectanglesQuantity);
         
-        //recorremos la lista para ir creando los objetos de tipo cuadrado
+        //recorremos la lista para ir creando los objetos de tipo Rectangle
         int count = 0;
         for(Object currentObject: elementList){
             //transformo el object
             Element currentElement = (Element)currentObject;
             
             //crear el cuadrado
-            Triangle currentTriangle = new Triangle();
+            ovalRectangle currentRectangle = new ovalRectangle();
             
             //establezco el id
-            currentTriangle.setIdentification(
+            currentRectangle.setIdentification(
                     currentElement.getAttributeValue("identification"));
             
             //establezco la posición
-            currentTriangle.setxAxis(Integer.parseInt(currentElement.getChild("xAxis").getValue()));
+            currentRectangle.setxAxis(Integer.parseInt(currentElement.getChild("xAxis").getValue()));
             
-            currentTriangle.setyAxis(Integer.parseInt(currentElement.getChild("yAxis").getValue()));
+            currentRectangle.setyAxis(Integer.parseInt(currentElement.getChild("yAxis").getValue()));
             
             //establezco el tamaño
-            currentTriangle.setSize(Integer.parseInt(currentElement.getChild("size").getValue()));
+            currentRectangle.setWidth(
+                    Integer.parseInt(currentElement.getChild("width").getValue()));
+            
+            currentRectangle.setHeight(
+                    Integer.parseInt(currentElement.getChild("height").getValue()));
+            
+            currentRectangle.setArcWidth(
+                    Integer.parseInt(currentElement.getChild("arcWidth").getValue()));
+            
+            currentRectangle.setArcHeight(
+                    Integer.parseInt(currentElement.getChild("arcHeight").getValue()));
             
             //guardar en el arreglo
-            trianglesArray.add(currentTriangle);
+            rectanglesArray.add(currentRectangle);
             count++;
         }//end for
-        return trianglesArray;
+        return rectanglesArray;
     } 
 }

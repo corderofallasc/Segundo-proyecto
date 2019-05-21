@@ -6,22 +6,28 @@
 
 package domain;
 
-public class Triangle {
+public class ovalRectangle {
     public String identification;
     private int xAxis;
     private int yAxis;
-    private int size;
+    private int width;
+    private int height;
+    private int arcWidth;
+    private int arcHeight;
 //    private int speed;
 
-    public Triangle(String identification, int x, int y, int size) {
+    public ovalRectangle(String identification, int x, int y, int width, int height, int arcWidth,int arcHeight) {
         this.identification = identification;
         this.xAxis= x;
         this.yAxis= y;
-        this.size = size;
+        this.width = width;
+        this.height = height;
+        this.arcWidth=arcWidth;
+        this.arcHeight=arcHeight;
 //        this.speed=speed;
     }
 
-    public Triangle() {
+    public ovalRectangle() {
     }
     
 
@@ -39,19 +45,7 @@ public class Triangle {
 //        this.pointPosition = pointPosition;
 //    }
 
-    /**
-     * @return the side
-     */
-    public int getSide() {
-        return size;
-    }
-
-    /**
-     * @param side the side to set
-     */
-    public void setSide(int side) {
-        this.size = side;
-    }
+    
 
     public String getIdentification() {
         return identification;
@@ -77,14 +71,39 @@ public class Triangle {
         this.yAxis = yAxis;
     }
     
-    public int getSize() {
-        return size;
+    public int getWidth() {
+        return width;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getArcWidth() {
+        return arcWidth;
+    }
+
+    public void setArcWidth(int arcWidth) {
+        this.arcWidth = arcWidth;
+    }
+
+    public int getArcHeight() {
+        return arcHeight;
+    }
+
+    public void setArcHeight(int arcHeight) {
+        this.arcHeight = arcHeight;
+    }
+    
+    
 //    public int getSpeed() {
 //        return speed;
 //    }

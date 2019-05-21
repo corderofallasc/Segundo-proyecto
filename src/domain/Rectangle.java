@@ -25,28 +25,6 @@ public class Rectangle {
 
     public Rectangle() {
     }
-    
-
-    /**
-     * @return the pointPosition
-     */
-//    public Point getPointPosition() {
-//        return pointPosition;
-//    }
-//
-//    /**
-//     * @param pointPosition the pointPosition to set
-//     */
-//    public void setPointPosition(Point pointPosition) {
-//        this.pointPosition = pointPosition;
-//    }
-
-    /**
-     * @return the side
-     */
-    public int getSide() {
-        return width;
-    }
 
     public String getIdentification() {
         return identification;
