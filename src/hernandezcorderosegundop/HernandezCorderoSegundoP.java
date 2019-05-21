@@ -48,6 +48,8 @@ public class HernandezCorderoSegundoP {
             RepaintLandThread repaintThread = new RepaintLandThread(myLand, 200);
             repaintThread.start();
             
+            System.out.println("\"HOlA ESTO ESS UNA PRUEBA\""); 
+            
 //            ArrayListThreads listThread=new ArrayListThreads(squareList);
 //            listThread.start();
             ArrayListThreads listThread=new ArrayListThreads(square1,250);
