@@ -23,35 +23,7 @@ public class Circle {
 
     public Circle() {
     }
-    
 
-    /**
-     * @return the pointPosition
-     */
-//    public Point getPointPosition() {
-//        return pointPosition;
-//    }
-//
-//    /**
-//     * @param pointPosition the pointPosition to set
-//     */
-//    public void setPointPosition(Point pointPosition) {
-//        this.pointPosition = pointPosition;
-//    }
-
-    /**
-     * @return the side
-     */
-    public int getSide() {
-        return size;
-    }
-
-    /**
-     * @param side the side to set
-     */
-    public void setSide(int side) {
-        this.size = side;
-    }
 
     public String getIdentification() {
         return identification;

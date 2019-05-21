@@ -6,22 +6,23 @@
 
 package threads;
 
-import domain.Triangle;
+import domain.Rectangle;
+import domain.ovalRectangle;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import utility.Variables;
 
-public class TriangleThreadData extends Thread{
+public class ovalRectangleThreadData extends Thread{
     
     //variables
-    private Triangle myTriangle;
+    private ovalRectangle myRectangle;
     private int delayTime;
 
-    public TriangleThreadData(Triangle myTriangle, int delayTime) {
-        super(myTriangle.identification);
-        this.myTriangle = myTriangle;
+    public ovalRectangleThreadData(ovalRectangle myRectangle, int delayTime) {
+        super(myRectangle.identification);
+        this.myRectangle = myRectangle;
         this.delayTime = delayTime;
     }
     
@@ -35,16 +36,16 @@ public class TriangleThreadData extends Thread{
                 sleep(delayTime);
 
                 //move the object
-                int newX=myTriangle.getxAxis();
-                if (newX>=(Variables.WIDTH-myTriangle.getSize())) {
+                int newX=myRectangle.getxAxis();
+                if (newX>=(Variables.WIDTH-myRectangle.getWidth())) {
                     flag=false;
                 }else{
                     newX+=5;
                 }
-                myTriangle.setxAxis(newX);
-                myTriangle.setyAxis(myTriangle.getyAxis());          
+                myRectangle.setxAxis(newX);
+                myRectangle.setyAxis(myRectangle.getyAxis());          
             } catch (InterruptedException ex) {
-                Logger.getLogger(TriangleThreadData.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ovalRectangleThreadData.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//end run
