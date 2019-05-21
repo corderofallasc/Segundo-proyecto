@@ -28,12 +28,6 @@ public class LandFrame extends JFrame{
     private Object myObject;
     private Object dataObject;
     //constructor
-//    public LandFrame(ArrayList<Square> mySquares) {
-//        super("Shape");
-//        this.mySquares = mySquares;
-//        this.setSize(Variables.WIDTH, Variables.HEIGHT);
-//        this.setVisible(true);
-//    }
     public LandFrame(Object object, int quantity, int speed) {
         super("Shape");
         this.speed=speed;
@@ -47,6 +41,7 @@ public class LandFrame extends JFrame{
     public void paint(Graphics g){
         super.paint(g);
         int amount=0;
+        
         //iterate over all squares
         for (int i = 0; i < quantity; i++) {
             int randomColor=(int)(Math.random()*4)+1;
@@ -64,7 +59,6 @@ public class LandFrame extends JFrame{
                     g.setColor (Color.darkGray);
                     break;
             }
-//            g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()-5);
             switch(speed){
                 case 250:
                     Square mySquare=(Square)this.dataObject;
