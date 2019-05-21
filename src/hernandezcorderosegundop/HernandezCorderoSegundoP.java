@@ -6,8 +6,10 @@
 package hernandezcorderosegundop;
 
 import data.XMLSquare;
+import domain.Circle;
 import domain.Rectangle;
 import domain.Square;
+import domain.ovalRectangle;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -40,9 +42,13 @@ public class HernandezCorderoSegundoP {
             dataSquare.insertSquare(square3);
             
             Rectangle rectangle1=new Rectangle("Rectngulo1", 0, 50, 50, 30);
+            ovalRectangle ovalR1=new ovalRectangle("ovalr1", 0, 50, 50, 30, 10, 10);
+            Circle circle1=new Circle("circle1", 0, 50, 50);
             
-            
-            LandFrame myLand = new LandFrame(square1,2,250);
+//            LandFrame myLand = new LandFrame(square1,4,250);
+//            LandFrame myLand=new LandFrame(ovalR1, 5, 450);
+//            LandFrame myLand=new LandFrame(rectangle1, 5, 800);
+            LandFrame myLand=new LandFrame(circle1, 4, 600);
             myLand.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
             RepaintLandThread repaintThread = new RepaintLandThread(myLand, 200);

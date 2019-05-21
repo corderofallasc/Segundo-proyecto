@@ -67,21 +67,21 @@ public class LandFrame extends JFrame{
                     break;
                 case 450:
                     ovalRectangle myOvaRectangle=(ovalRectangle)this.dataObject;
-                    g.drawString(myOvaRectangle.getIdentification(),myOvaRectangle.getxAxis(),myOvaRectangle.getyAxis()-5);
-                    g.fillRoundRect(myOvaRectangle.getxAxis(), myOvaRectangle.getyAxis(),myOvaRectangle.getWidth(), myOvaRectangle.getHeight(),myOvaRectangle.getArcWidth(), myOvaRectangle.getArcHeight());
+                    g.drawString(myOvaRectangle.getIdentification(),myOvaRectangle.getxAxis(),myOvaRectangle.getyAxis()+amount-5);
+                    g.fillRoundRect(myOvaRectangle.getxAxis(), myOvaRectangle.getyAxis()+amount,myOvaRectangle.getWidth(), myOvaRectangle.getHeight(),myOvaRectangle.getArcWidth(), myOvaRectangle.getArcHeight());
                     break;
                 case 600:
                     Circle myCircle=(Circle)this.dataObject;
-                    g.drawString(myCircle.getIdentification(),myCircle.getxAxis(),myCircle.getyAxis()-5);
-                    g.fillOval(myCircle.getxAxis(), myCircle.getyAxis(), myCircle.getSize(), myCircle.getSize());
+                    g.drawString(myCircle.getIdentification(),myCircle.getxAxis(),myCircle.getyAxis()+amount-5);
+                    g.fillOval(myCircle.getxAxis(), myCircle.getyAxis()+amount, myCircle.getSize(), myCircle.getSize());
                     break;
                 case 800:
                     Rectangle myRectangle=(Rectangle)this.dataObject;
-                    g.drawString(myRectangle.getIdentification(),myRectangle.getxAxis(),myRectangle.getyAxis()-5);
-                    g.fillRect(myRectangle.getxAxis(), myRectangle.getyAxis(), myRectangle.getWidth(), myRectangle.getHeight());
+                    g.drawString(myRectangle.getIdentification(),myRectangle.getxAxis(),myRectangle.getyAxis()+amount-5);
+                    g.fillRect(myRectangle.getxAxis(), myRectangle.getyAxis()+amount, myRectangle.getWidth(), myRectangle.getHeight());
                     break;
             }
-            amount+=50;
+            amount+=70;
         } //end for
     }
 
