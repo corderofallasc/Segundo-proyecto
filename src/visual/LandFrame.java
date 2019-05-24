@@ -6,17 +6,16 @@
 
 package visual;
 
-import domain.Circle;
 import domain.Rectangle;
-import domain.Square;
-import domain.ovalRectangle;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 import utility.Variables;
 
 public class LandFrame extends JFrame{
@@ -25,18 +24,24 @@ public class LandFrame extends JFrame{
 //    public ArrayList<Square> mySquares;
     private int speed;
     private int quantity;
-    private Object myObject;
-    private Object dataObject;
+    private Rectangle mySquare;
     //constructor
-    public LandFrame(Object object, int quantity, int speed) {
+//    public LandFrame(Object object, int quantity, int speed) {
+//        super("Shape");
+//        this.speed=speed;
+//        this.quantity=quantity;
+//        this.dataObject=object;
+//        this.setSize(Variables.WIDTH, Variables.HEIGHT);
+//        this.setVisible(true);
+//    }
+    public LandFrame(Rectangle mySquare, int quantity, int speed) {
         super("Shape");
         this.speed=speed;
         this.quantity=quantity;
-        this.dataObject=object;
+        this.mySquare=mySquare;
         this.setSize(Variables.WIDTH, Variables.HEIGHT);
         this.setVisible(true);
     }
-    
     @Override
     public void paint(Graphics g){
         super.paint(g);
@@ -45,46 +50,56 @@ public class LandFrame extends JFrame{
         //iterate over all squares
         for (int i = 0; i < quantity; i++) {
             int randomColor=(int)(Math.random()*4)+1;
+            int carril=50;
             switch(randomColor){
                 case 1:
-                    g.setColor (Color.blue);
+                    carril=50;
                     break;
                 case 2:
-                    g.setColor (Color.black);
+                    carril=115;
                     break;
                 case 3:
-                    g.setColor (Color.cyan);
+                    carril=180;
                     break;
                 case 4:
-                    g.setColor (Color.darkGray);
+                    carril=50;
                     break;
             }
             switch(speed){
                 case 250:
-                    Square mySquare=(Square)this.dataObject;
+                    g.setColor (Color.blue);
+                    mySquare.setyAxis(amount);
                     g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
-                    g.fillRect(mySquare.getxAxis(), mySquare.getyAxis()+amount, mySquare.getSize(), mySquare.getSize());
+                    g.fillRect(mySquare.getxAxis(), mySquare.getyAxis(), mySquare.getWidth(), mySquare.getHeight());
                     break;
                 case 450:
-                    ovalRectangle myOvaRectangle=(ovalRectangle)this.dataObject;
-                    g.drawString(myOvaRectangle.getIdentification(),myOvaRectangle.getxAxis(),myOvaRectangle.getyAxis()+amount-5);
-                    g.fillRoundRect(myOvaRectangle.getxAxis(), myOvaRectangle.getyAxis()+amount,myOvaRectangle.getWidth(), myOvaRectangle.getHeight(),myOvaRectangle.getArcWidth(), myOvaRectangle.getArcHeight());
+                    g.setColor (Color.cyan);
+                    mySquare.setyAxis(amount);
+                    g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
+                    g.fillRect(mySquare.getxAxis(), mySquare.getyAxis(), mySquare.getWidth(), mySquare.getHeight());
                     break;
                 case 600:
-                    Circle myCircle=(Circle)this.dataObject;
-                    g.drawString(myCircle.getIdentification(),myCircle.getxAxis(),myCircle.getyAxis()+amount-5);
-                    g.fillOval(myCircle.getxAxis(), myCircle.getyAxis()+amount, myCircle.getSize(), myCircle.getSize());
+                    g.setColor (Color.black);
+                    mySquare.setyAxis(amount);
+                    g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
+                    g.fillRect(mySquare.getxAxis(), mySquare.getyAxis(), mySquare.getWidth(), mySquare.getHeight());
                     break;
                 case 800:
-                    Rectangle myRectangle=(Rectangle)this.dataObject;
-                    g.drawString(myRectangle.getIdentification(),myRectangle.getxAxis(),myRectangle.getyAxis()+amount-5);
-                    g.fillRect(myRectangle.getxAxis(), myRectangle.getyAxis()+amount, myRectangle.getWidth(), myRectangle.getHeight());
+                    g.setColor (Color.gray);
+                    mySquare.setyAxis(amount);
+                    g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
+                    g.fillRect(mySquare.getxAxis(), mySquare.getyAxis(), mySquare.getWidth(), mySquare.getHeight());
                     break;
             }
-            amount+=70;
+            if (amount>=420) {
+                amount=0;
+                
+            } else {
+                amount+=70;
+            }
         } //end for
     }
-
+    
     public void paintAgain(){
         repaint();
     }

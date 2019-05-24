@@ -42,7 +42,7 @@ public class XMLRectangle {
             //2. EL ARCHIVO NO EXISTE, ENTONCES LO CREO Y LUEGO LO CARGO EN MEMORIA
             
             //CREAMOS EL ELEMENTO RAIZ
-            this.root = new Element("squares");
+            this.root = new Element("rectangles");
             
             //CREAMOS EL DOCUMENTO
             this.document = new Document(this.root);
@@ -59,12 +59,12 @@ public class XMLRectangle {
     }
     
     //metodo para insertar un nuevo cuadrado en el documento xml
-    public void insertRectangle(Rectangle rectangle) throws IOException{
+    public void insertRectangles(Rectangle rectangle) throws IOException{
         //INSERTAMOS EN EL DOCUMENTO EN MEMORIA
         //para insertar en xml, primero se crean los elementos
         
-        //crear el Rectangle
-        Element eRectangle = new Element("Triangle");
+        //crear el cuadrado
+        Element eRectangle = new Element("rectangle");
         //agregamos atributo
         eRectangle.setAttribute("identification", rectangle.getIdentification());
         
@@ -82,12 +82,11 @@ public class XMLRectangle {
         Element eHeight = new Element("height");
         eHeight.addContent(String.valueOf(rectangle.getHeight()));
         
-        //agregar al elemento Rectangle el contenido de tamaño2
+        //agregar al elemento square el contenido de punto y tamaño2
         eRectangle.addContent(eXAxis);
         eRectangle.addContent(eYAxis);
         eRectangle.addContent(eWidth);
         eRectangle.addContent(eHeight);
-        
         //AGREGAMOS AL ROOT
         this.root.addContent(eRectangle);
         
@@ -107,7 +106,7 @@ public class XMLRectangle {
     
     //metodo para obtener todos los estudiantes en un arreglo
     public ArrayList<Rectangle> getAllRectangles(){
-        //obtenemos la cantidad de rectangulos
+        //obtenemos la cantidad de cuadrados
         int rectanglesQuantity = this.root.getContentSize();
         //obtenemos una lista con todos los elementos de root
         List elementList = this.root.getChildren();
@@ -115,7 +114,7 @@ public class XMLRectangle {
         //definimos el tamanno del arreglo
         ArrayList<Rectangle> rectanglesArray = new ArrayList<>(rectanglesQuantity);
         
-        //recorremos la lista para ir creando los objetos de tipo Rectangle
+        //recorremos la lista para ir creando los objetos de tipo cuadrado
         int count = 0;
         for(Object currentObject: elementList){
             //transformo el object
@@ -134,15 +133,13 @@ public class XMLRectangle {
             currentRectangle.setyAxis(Integer.parseInt(currentElement.getChild("yAxis").getValue()));
             
             //establezco el tamaño
-            currentRectangle.setWidth(
-                    Integer.parseInt(currentElement.getChild("width").getValue()));
-            
-            currentRectangle.setHeight(
-                    Integer.parseInt(currentElement.getChild("height").getValue()));
+            currentRectangle.setWidth(Integer.parseInt(currentElement.getChild("width").getValue()));
+            currentRectangle.setHeight(Integer.parseInt(currentElement.getChild("height").getValue()));
             //guardar en el arreglo
             rectanglesArray.add(currentRectangle);
             count++;
         }//end for
         return rectanglesArray;
-    } 
+    }
+    
 }
