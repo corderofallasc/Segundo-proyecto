@@ -12,7 +12,7 @@ import utility.Variables;
 
 public class ArrayListThreads extends Thread{
     private ArrayList<Rectangle> myList;
-    private SquareThreadData squareThread;
+    private RectangleThreadData squareThread;
     private Rectangle mySquare;
     private int speed;
     
@@ -30,22 +30,22 @@ public class ArrayListThreads extends Thread{
             switch(speed){
             case 250:
                 this.mySquare=(Rectangle)this.mySquare;
-                this.squareThread=new SquareThreadData(mySquare, speed);
+                this.squareThread=new RectangleThreadData(mySquare, speed);
                 this.squareThread.start();
                 break;
             case 450:
                 this.mySquare=(Rectangle)this.mySquare;
-                this.squareThread=new SquareThreadData(mySquare, speed);
+                this.squareThread=new RectangleThreadData(mySquare, speed);
                 this.squareThread.start();
                 break;
             case 600:
                 this.mySquare=(Rectangle)this.mySquare;
-                this.squareThread=new SquareThreadData(mySquare, speed);
+                this.squareThread=new RectangleThreadData(mySquare, speed);
                 this.squareThread.start();
                 break;
             case 800:
                 this.mySquare=(Rectangle)this.mySquare;
-                this.squareThread=new SquareThreadData(mySquare, speed);
+                this.squareThread=new RectangleThreadData(mySquare, speed);
                 this.squareThread.start();
                 break;
         }

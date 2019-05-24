@@ -17,13 +17,13 @@ import utility.Variables;
  *
  * @author Fabian
  */
-public class SquareThreadData extends Thread{
+public class RectangleThreadData extends Thread{
     
     //variables
     private Rectangle mySquare;
     private int delayTime;
 
-    public SquareThreadData(Rectangle mySquare, int delayTime) {
+    public RectangleThreadData(Rectangle mySquare, int delayTime) {
         super(mySquare.identification);
         this.mySquare = mySquare;
         this.delayTime = delayTime;
@@ -49,7 +49,7 @@ public class SquareThreadData extends Thread{
                 mySquare.setyAxis(mySquare.getyAxis()); 
                 
             } catch (InterruptedException ex) {
-                Logger.getLogger(SquareThreadData.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RectangleThreadData.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//end run
