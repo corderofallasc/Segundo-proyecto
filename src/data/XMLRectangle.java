@@ -4,7 +4,7 @@
  */
 package data;
 
-import domain.Square;
+import domain.Rectangle;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,18 +16,18 @@ import org.jdom.JDOMException;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.XMLOutputter;
 
-public class XMLSquare {
+public class XMLRectangle {
     
     //variables
     private Document document;
     private Element root;
     private String path;
 
-    public XMLSquare(String path) throws IOException, JDOMException {
+    public XMLRectangle(String path) throws IOException, JDOMException {
         //ruta en la que se encuentra el archivo XML
         this.path = path;
-        File fileSquare = new File(path);//esto es solo para hacer validacion
-        if(fileSquare.exists()){
+        File fileRectangle = new File(path);//esto es solo para hacer validacion
+        if(fileRectangle.exists()){
             //1. EL ARCHIVO YA EXISTE, ENTONCES LO CARGO EN MEMORIA
             
             //toma la estructura de datos y las carga en memoria
@@ -42,7 +42,7 @@ public class XMLSquare {
             //2. EL ARCHIVO NO EXISTE, ENTONCES LO CREO Y LUEGO LO CARGO EN MEMORIA
             
             //CREAMOS EL ELEMENTO RAIZ
-            this.root = new Element("squares");
+            this.root = new Element("rectangles");
             
             //CREAMOS EL DOCUMENTO
             this.document = new Document(this.root);
@@ -59,33 +59,36 @@ public class XMLSquare {
     }
     
     //metodo para insertar un nuevo cuadrado en el documento xml
-    public void insertSquare(Square square) throws IOException{
+    public void insertRectangles(Rectangle rectangle) throws IOException{
         //INSERTAMOS EN EL DOCUMENTO EN MEMORIA
         //para insertar en xml, primero se crean los elementos
         
         //crear el cuadrado
-        Element eSquare = new Element("square");
+        Element eRectangle = new Element("rectangle");
         //agregamos atributo
-        eSquare.setAttribute("identification", square.getIdentification());
+        eRectangle.setAttribute("identification", rectangle.getIdentification());
         
         //creamos el elemento de las posiciones
         Element eXAxis = new Element("xAxis");
-        eXAxis.addContent(String.valueOf(square.getxAxis()));
+        eXAxis.addContent(String.valueOf(rectangle.getxAxis()));
         
         Element eYAxis = new Element("yAxis");
-        eYAxis.addContent(String.valueOf(square.getyAxis()));
+        eYAxis.addContent(String.valueOf(rectangle.getyAxis()));
         
         //creamos el elemento tamaño
-        Element eSize = new Element("size");
-        eSize.addContent(String.valueOf(square.getSize()));
+        Element eWidth = new Element("width");
+        eWidth.addContent(String.valueOf(rectangle.getWidth()));
+        
+        Element eHeight = new Element("height");
+        eHeight.addContent(String.valueOf(rectangle.getHeight()));
         
         //agregar al elemento square el contenido de punto y tamaño2
-        eSquare.addContent(eXAxis);
-        eSquare.addContent(eYAxis);
-        eSquare.addContent(eSize);
-        
+        eRectangle.addContent(eXAxis);
+        eRectangle.addContent(eYAxis);
+        eRectangle.addContent(eWidth);
+        eRectangle.addContent(eHeight);
         //AGREGAMOS AL ROOT
-        this.root.addContent(eSquare);
+        this.root.addContent(eRectangle);
         
         //FINALMENTE: GUARDAR EN DD
         storeXML();
@@ -93,7 +96,7 @@ public class XMLSquare {
     
     
     //delete
-    public void deleteStudent() throws IOException{
+    public void deleteRectangle() throws IOException{
         List elementList = this.root.getChildren();
         elementList.remove(1);
         
@@ -102,14 +105,14 @@ public class XMLSquare {
     }
     
     //metodo para obtener todos los estudiantes en un arreglo
-    public ArrayList<Square> getAllSquares(){
+    public ArrayList<Rectangle> getAllRectangles(){
         //obtenemos la cantidad de cuadrados
-        int squaresQuantity = this.root.getContentSize();
+        int rectanglesQuantity = this.root.getContentSize();
         //obtenemos una lista con todos los elementos de root
         List elementList = this.root.getChildren();
         
         //definimos el tamanno del arreglo
-        ArrayList<Square> squaresArray = new ArrayList<>(squaresQuantity);
+        ArrayList<Rectangle> rectanglesArray = new ArrayList<>(rectanglesQuantity);
         
         //recorremos la lista para ir creando los objetos de tipo cuadrado
         int count = 0;
@@ -118,25 +121,25 @@ public class XMLSquare {
             Element currentElement = (Element)currentObject;
             
             //crear el cuadrado
-            Square currentSquare = new Square();
+            Rectangle currentRectangle = new Rectangle();
             
             //establezco el id
-            currentSquare.setIdentification(
+            currentRectangle.setIdentification(
                     currentElement.getAttributeValue("identification"));
             
             //establezco la posición
-            currentSquare.setxAxis(Integer.parseInt(currentElement.getChild("xAxis").getValue()));
+            currentRectangle.setxAxis(Integer.parseInt(currentElement.getChild("xAxis").getValue()));
             
-            currentSquare.setyAxis(Integer.parseInt(currentElement.getChild("yAxis").getValue()));
+            currentRectangle.setyAxis(Integer.parseInt(currentElement.getChild("yAxis").getValue()));
             
             //establezco el tamaño
-            currentSquare.setSize(Integer.parseInt(currentElement.getChild("size").getValue()));
-            
+            currentRectangle.setWidth(Integer.parseInt(currentElement.getChild("width").getValue()));
+            currentRectangle.setHeight(Integer.parseInt(currentElement.getChild("height").getValue()));
             //guardar en el arreglo
-            squaresArray.add(currentSquare);
+            rectanglesArray.add(currentRectangle);
             count++;
         }//end for
-        return squaresArray;
+        return rectanglesArray;
     }
     
 }

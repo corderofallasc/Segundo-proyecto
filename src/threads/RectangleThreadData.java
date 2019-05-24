@@ -6,7 +6,7 @@
 
 package threads;
 
-import domain.Square;
+import domain.Rectangle;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,13 +17,13 @@ import utility.Variables;
  *
  * @author Fabian
  */
-public class SquareThreadData extends Thread{
+public class RectangleThreadData extends Thread{
     
     //variables
-    private Square mySquare;
+    private Rectangle mySquare;
     private int delayTime;
 
-    public SquareThreadData(Square mySquare, int delayTime) {
+    public RectangleThreadData(Rectangle mySquare, int delayTime) {
         super(mySquare.identification);
         this.mySquare = mySquare;
         this.delayTime = delayTime;
@@ -40,15 +40,16 @@ public class SquareThreadData extends Thread{
 
                 //move the object
                 int newX=mySquare.getxAxis();
-                if (newX>=(Variables.WIDTH-mySquare.getSide())) {
+                if (newX>=(Variables.WIDTH-mySquare.getWidth())) {
                     flag=false;
                 }else{
                     newX+=5;
                 }
                 mySquare.setxAxis(newX);
-                mySquare.setyAxis(mySquare.getyAxis());          
+                mySquare.setyAxis(mySquare.getyAxis()); 
+                
             } catch (InterruptedException ex) {
-                Logger.getLogger(SquareThreadData.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(RectangleThreadData.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//end run

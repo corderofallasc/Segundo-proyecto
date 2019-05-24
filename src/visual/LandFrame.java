@@ -6,53 +6,100 @@
 
 package visual;
 
-import domain.Square;
+import domain.Rectangle;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 import utility.Variables;
 
 public class LandFrame extends JFrame{
     
     //variables
-    public ArrayList<Square> mySquares;
+//    public ArrayList<Square> mySquares;
+    private int speed;
+    private int quantity;
+    private Rectangle mySquare;
     //constructor
-    public LandFrame(ArrayList<Square> mySquares) {
+//    public LandFrame(Object object, int quantity, int speed) {
+//        super("Shape");
+//        this.speed=speed;
+//        this.quantity=quantity;
+//        this.dataObject=object;
+//        this.setSize(Variables.WIDTH, Variables.HEIGHT);
+//        this.setVisible(true);
+//    }
+    public LandFrame(Rectangle mySquare, int quantity, int speed) {
         super("Shape");
-        this.mySquares = mySquares;
+        this.speed=speed;
+        this.quantity=quantity;
+        this.mySquare=mySquare;
         this.setSize(Variables.WIDTH, Variables.HEIGHT);
         this.setVisible(true);
     }
-    
     @Override
     public void paint(Graphics g){
         super.paint(g);
+        int amount=0;
+        
         //iterate over all squares
-        for (Square mySquare : mySquares) {
+        for (int i = 0; i < quantity; i++) {
             int randomColor=(int)(Math.random()*4)+1;
+            int carril=50;
             switch(randomColor){
                 case 1:
-                    g.setColor (Color.blue);
+                    carril=50;
                     break;
                 case 2:
-                    g.setColor (Color.black);
+                    carril=115;
                     break;
                 case 3:
-                    g.setColor (Color.cyan);
+                    carril=180;
                     break;
                 case 4:
-                    g.setColor (Color.darkGray);
+                    carril=50;
                     break;
             }
-            g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()-5);
-            g.fillRect(mySquare.getxAxis(), mySquare.getyAxis(), mySquare.getSide(), mySquare.getSide());
+            switch(speed){
+                case 250:
+                    g.setColor (Color.blue);
+                    mySquare.setyAxis(amount);
+                    g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
+                    g.fillRect(mySquare.getxAxis(), mySquare.getyAxis(), mySquare.getWidth(), mySquare.getHeight());
+                    break;
+                case 450:
+                    g.setColor (Color.cyan);
+                    mySquare.setyAxis(amount);
+                    g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
+                    g.fillRect(mySquare.getxAxis(), mySquare.getyAxis(), mySquare.getWidth(), mySquare.getHeight());
+                    break;
+                case 600:
+                    g.setColor (Color.black);
+                    mySquare.setyAxis(amount);
+                    g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
+                    g.fillRect(mySquare.getxAxis(), mySquare.getyAxis(), mySquare.getWidth(), mySquare.getHeight());
+                    break;
+                case 800:
+                    g.setColor (Color.gray);
+                    mySquare.setyAxis(amount);
+                    g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
+                    g.fillRect(mySquare.getxAxis(), mySquare.getyAxis(), mySquare.getWidth(), mySquare.getHeight());
+                    break;
+            }
+            if (amount>=420) {
+                amount=0;
+                
+            } else {
+                amount+=70;
+            }
         } //end for
     }
-
+    
     public void paintAgain(){
         repaint();
     }
