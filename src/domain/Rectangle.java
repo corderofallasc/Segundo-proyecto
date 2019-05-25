@@ -12,20 +12,18 @@ public class Rectangle {
     private int yAxis;
     private int width;
     private int height;
-//    private int speed;
 
-    public Rectangle(String identification, int x, int y, int width, int height) {
+    public Rectangle(String identification, int x, int y, int width,int height) {
         this.identification = identification;
         this.xAxis= x;
         this.yAxis= y;
         this.width = width;
-        this.height = height;
-//        this.speed=speed;
+        this.height=height;
     }
 
     public Rectangle() {
     }
-
+    
     public String getIdentification() {
         return identification;
     }
@@ -66,19 +64,9 @@ public class Rectangle {
         this.height = height;
     }
     
-    
-//    public int getSpeed() {
-//        return speed;
-//    }
-//
-//    public void setSpeed(int speed) {
-//        this.speed = speed;
-//    }
-    
-    
-  public String toString(){
-      String exit="Identification: "+this.identification+
-              "\n XAxis: "+this.xAxis+"\n yAxis: "+this.yAxis;
-      return exit;
-  }   
+    public String toString(){
+        String exit="Identification: "+this.identification+
+                "\n XAxis: "+this.xAxis+"\n yAxis: "+this.yAxis;
+        return exit;
+    }   
 }

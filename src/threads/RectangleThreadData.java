@@ -13,15 +13,19 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import utility.Variables;
 
+/**
+ *
+ * @author Fabian
+ */
 public class RectangleThreadData extends Thread{
     
     //variables
-    private Rectangle myRectangle;
+    private Rectangle mySquare;
     private int delayTime;
 
-    public RectangleThreadData(Rectangle myRectangle, int delayTime) {
-        super(myRectangle.identification);
-        this.myRectangle = myRectangle;
+    public RectangleThreadData(Rectangle mySquare, int delayTime) {
+        super(mySquare.identification);
+        this.mySquare = mySquare;
         this.delayTime = delayTime;
     }
     
@@ -35,14 +39,15 @@ public class RectangleThreadData extends Thread{
                 sleep(delayTime);
 
                 //move the object
-                int newX=myRectangle.getxAxis();
-                if (newX>=(Variables.WIDTH-myRectangle.getWidth())) {
+                int newX=mySquare.getxAxis();
+                if (newX>=(Variables.WIDTH-mySquare.getWidth())) {
                     flag=false;
                 }else{
                     newX+=5;
                 }
-                myRectangle.setxAxis(newX);
-                myRectangle.setyAxis(myRectangle.getyAxis());          
+                mySquare.setxAxis(newX);
+                mySquare.setyAxis(mySquare.getyAxis()); 
+                
             } catch (InterruptedException ex) {
                 Logger.getLogger(RectangleThreadData.class.getName()).log(Level.SEVERE, null, ex);
             }
