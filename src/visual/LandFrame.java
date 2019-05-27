@@ -8,23 +8,29 @@ package visual;
 
 import domain.Rectangle;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import utility.Variables;
 
-public class LandFrame extends JFrame{
+public class LandFrame extends JFrame {
     
     //variables
 //    public ArrayList<Square> mySquares;
     private int speed;
     private int quantity;
     private Rectangle mySquare;
+    JButton jbtPlay,jbcreate, jbtBarrier;
     //constructor
 //    public LandFrame(Object object, int quantity, int speed) {
 //        super("Shape");
@@ -34,8 +40,22 @@ public class LandFrame extends JFrame{
 //        this.setSize(Variables.WIDTH, Variables.HEIGHT);
 //        this.setVisible(true);
 //    }
+    
+    JButton btnStart;
+    private Font font, fontDos;
+    
     public LandFrame(Rectangle mySquare, int quantity, int speed) {
-        super("Shape");
+        this.setLayout(null);
+        this.setTitle("Speedway");
+        ((JPanel)getContentPane()).setOpaque(false);
+            ImageIcon uno = new ImageIcon(this.getClass().getResource("/assets/pistaFondo.jpg"));
+            JLabel fondo = new JLabel();
+            fondo.setIcon(uno);
+            getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
+            fondo.setBounds(0, 0, uno.getIconWidth(), uno.getIconHeight());
+        this.font = new Font("Century gothic", Font.BOLD, 14);
+        this.fontDos = new Font("Century gothic", Font.BOLD, 15);
+       
         this.speed=speed;
         this.quantity=quantity;
         this.mySquare=mySquare;
