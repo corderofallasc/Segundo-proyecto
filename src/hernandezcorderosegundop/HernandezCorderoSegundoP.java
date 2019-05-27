@@ -17,6 +17,7 @@ import threads.ArrayListThreads;
 import threads.RepaintLandThread;
 import utility.Variables;
 import visual.LandFrame;
+import visual.PlayWindow;
 
 public class HernandezCorderoSegundoP {
 
@@ -26,6 +27,8 @@ public class HernandezCorderoSegundoP {
     public static void main(String[] args) {
         
         try {
+            
+            
             ArrayList<Rectangle> squareList=new ArrayList<>();
             XMLRectangle dataSquare=new XMLRectangle(Variables.PATH);
             squareList=dataSquare.getAllRectangles();
@@ -38,10 +41,13 @@ public class HernandezCorderoSegundoP {
 //            dataSquare.insertSquare(square2);
 //            dataSquare.insertSquare(square3);
             
-            LandFrame myLand = new LandFrame(square1,6,450);
-            myLand.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            PlayWindow pw= new PlayWindow(square1,6,450);
+            pw.setVisible(true);
+
+//            LandFrame myLand = new LandFrame(square1,6,450);
+//            myLand.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             
-            RepaintLandThread repaintThread = new RepaintLandThread(myLand, 200);
+            RepaintLandThread repaintThread = new RepaintLandThread(pw, 200);
             repaintThread.start();
             
 //            ArrayListThreads listThread=new ArrayListThreads(squareList);
