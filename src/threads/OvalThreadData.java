@@ -6,22 +6,22 @@
 
 package threads;
 
-import domain.Rectangle;
+import domain.Oval;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import utility.Variables;
 
-public class RectangleThreadData extends Thread{
+public class OvalThreadData extends Thread{
     
     //variables
-    private Rectangle myRectabgle;
+    private Oval myOval;
     private int delayTime;
 
-    public RectangleThreadData(Rectangle myRectangle, int delayTime) {
-        super(myRectangle.identification);
-        this.myRectabgle = myRectangle;
+    public OvalThreadData(Oval myOval, int delayTime) {
+        super(myOval.identification);
+        this.myOval = myOval;
         this.delayTime = delayTime;
     }
     
@@ -35,17 +35,16 @@ public class RectangleThreadData extends Thread{
                 sleep(delayTime);
 
                 //move the object
-                int newX=myRectabgle.getxAxis();
-                if (newX>=(Variables.WIDTH-myRectabgle.getWidth())) {
+                int newX=myOval.getxAxis();
+                if (newX>=(Variables.WIDTH-myOval.getSizeX())) {
                     flag=false;
                 }else{
                     newX+=5;
                 }
-                myRectabgle.setxAxis(newX);
-//                myRectabgle.setyAxis(myRectabgle.getyAxis()); 
-                
+                myOval.setxAxis(newX);
+                myOval.setyAxis(myOval.getyAxis());          
             } catch (InterruptedException ex) {
-                Logger.getLogger(RectangleThreadData.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OvalThreadData.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//end run

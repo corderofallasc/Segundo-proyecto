@@ -93,7 +93,6 @@ public class LandFrame extends JFrame{
             }
             if (amount>=420) {
                 amount=0;
-                
             } else {
                 amount+=70;
             }
