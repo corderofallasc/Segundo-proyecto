@@ -11,6 +11,7 @@ public class Square {
     private int xAxis;
     private int yAxis;
     private int size;
+    private boolean pause;
 //    private int speed;
 
     public Square(String identification, int x, int y, int size) {
@@ -63,4 +64,9 @@ public class Square {
               "\n XAxis: "+this.xAxis+"\n yAxis: "+this.yAxis;
       return exit;
   }   
-}
+  
+  public void pause(){
+        pause=true;
+    }//pause
+  
+}//class

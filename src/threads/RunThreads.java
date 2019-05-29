@@ -25,10 +25,17 @@ public class RunThreads extends Thread{
     private Square mysquare;
     private Circle myCircle;
     private int speed;
+    public boolean pausar;
+   
     
     public RunThreads(Object myObject,int speed) {
         this.speed=speed;
         this.myObject=myObject;
+       pausar=false;
+    }
+    
+    public void pause(){
+        pausar=true;
     }
     
     @Override
@@ -38,6 +45,7 @@ public class RunThreads extends Thread{
                 this.mysquare=(Square)this.myObject;
                 this.squareThreadData=new SquareThreadData(mysquare, speed);
                 this.squareThreadData.start();
+                if(pausar) break;    
                 break;
             case 450:
                 this.myRectangle=(Rectangle)this.myObject;
