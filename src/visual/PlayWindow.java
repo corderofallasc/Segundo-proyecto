@@ -43,7 +43,7 @@ public class PlayWindow extends JFrame {
     private int quantity;
     private Rectangle myRectangle;
     private Oval myOval;
-    private Square mysquare;
+    public static Square mysquare;
     private Circle myCircle;
     private boolean startSimulation;
     private RunThreads listThread;
@@ -66,10 +66,10 @@ public class PlayWindow extends JFrame {
             //this.speed=comboSpeed.getSelectedItem();
             this.quantity=1;
             
-            this.myCircle= new Circle("circle", 0, 0, 20);
-            this.myRectangle=new Rectangle("Rectangle1", 0, 0, 80, 30);
-            this.myOval=new Oval("oval", 0, 0, 20, 35);
-            this.mysquare=new Square("square", 0, 0, 30);
+            this.myCircle= new Circle("circle", 270, 0, 20);
+            this.myRectangle=new Rectangle("Rectangle1", 270, 0, 22, 18);
+            this.myOval=new Oval("oval", 270, 0, 20, 18);
+            this.mysquare=new Square("square", 270, 448, 18);
             this.startSimulation=false;
             
             
@@ -93,9 +93,9 @@ public class PlayWindow extends JFrame {
             jtValue.setEnabled(false);
             jbRevert.setEnabled(false);
             jbInterrupt.setEnabled(false);
-            jbSimulation.setEnabled(false);
+            jbSimulation.setEnabled(true);
             comboSpeed.setEnabled(false);
-            
+            jcheckImage.setEnabled(false);
             
         } catch (IOException ex) {
             Logger.getLogger(PlayWindow.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,25 +108,37 @@ public class PlayWindow extends JFrame {
       @Override
     public void paint(Graphics g){
         super.paint(g);
-        int amount=70;
-        if (startSimulation) {
+        int amountX=270;
+        int amountY=448;
+        
+//        if (startSimulation) {
+            if (startSimulation) {
+              g.fillOval(myCircle.getxAxis(), myCircle.getyAxis(), myCircle.getSize(), myCircle.getSize());
+                        this.listThread=new RunThreads(myCircle,speed);
+                        listThread.start();
+                        startSimulation=false;
+          }
               //iterate over all squares
             for (int i = 0; i < quantity; i++) {
                 switch(speed){
                     case 250 :
                         g.setColor (Color.blue);
-                        mysquare.setyAxis(amount);
+//                        mysquare.setyAxis(amountY);
+//                        mysquare.setxAxis(amountX);
                         if(jcheckImage.isSelected())
                             g.drawImage(bufferImage1,mysquare.getxAxis(), mysquare.getyAxis(),null);
                         else
+                            
                         //g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
-                        g.fillRect(mysquare.getxAxis(), mysquare.getyAxis(), mysquare.getSize(),mysquare.getSize());
+                        g.fillRect(mysquare.getxAxis(), mysquare.getyAxis(), mysquare.getSize(),mysquare.getSize());                     
                         this.listThread=new RunThreads(mysquare,speed);
-                        listThread.start();
+                        SquareThreadData s=new SquareThreadData(mysquare, speed);
+                        s.start();
                         break;
                     case 450:
                         g.setColor (Color.cyan);
-                        myRectangle.setyAxis(amount);
+                        myRectangle.setyAxis(amountY);
+//                        myRectangle.setxAxis(amountX);
                         if(jcheckImage.isSelected())
                             g.drawImage(bufferImage1,myRectangle.getxAxis(), myRectangle.getyAxis(),null);
                         else
@@ -137,7 +149,8 @@ public class PlayWindow extends JFrame {
                         break;
                     case 600:
                         g.setColor (Color.black);
-                        myCircle.setyAxis(amount);
+                        myCircle.setyAxis(amountY);
+                        myCircle.setxAxis(amountX);
                         if(jcheckImage.isSelected())
                             g.drawImage(bufferImage1,myCircle.getxAxis(), myCircle.getyAxis(),null);
                         else
@@ -148,32 +161,44 @@ public class PlayWindow extends JFrame {
                         break;
                     case 800:
                         g.setColor (Color.gray);
-                        myOval.setyAxis(amount);
+                        myOval.setyAxis(amountY);
+                        myOval.setxAxis(amountX);
                         if(jcheckImage.isSelected())
                             g.drawImage(bufferImage1,myOval.getxAxis(), myOval.getyAxis(),null);
                         else
                         //g.drawString(mySquare.getIdentification(),mySquare.getxAxis(),mySquare.getyAxis()+amount-5);
                         g.fillOval(myOval.getxAxis(), myOval.getyAxis(), myOval.getSizeX(), myOval.getSizeY());
+                        this.listThread=new RunThreads(myOval,speed);
+                        listThread.start();
                         break;
                 }
-                if (amount>=420) {
-                    amount=0;
+                if (amountX<=170) {
+                    amountX=270;
                 } else {
-                    amount+=70;
+                    amountX-=20;
+                }
+                
+                if (amountY>=568) {
+                    amountY=448;
+                } else {
+                    amountY+=23;
                 }
             } //end for
-          }//if starSimulation
+//          }//if starSimulation
         
         if(rB1.isSelected()){
-            g.drawImage(bufferImage6,305,450,null);
+            g.drawImage(bufferImage6,410,118,null);
+            SquareThreadData.barrier=true;
         }if(rB2.isSelected()){
-            g.drawImage(bufferImage6,305,472,null);
+            g.drawImage(bufferImage6,410,96,null);
+            
         }if(rB3.isSelected()){
-            g.drawImage(bufferImage6,305,494,null);
+            g.drawImage(bufferImage6,410,74,null);
         }if(rB4.isSelected()){
-            g.drawImage(bufferImage6,305,516,null);
+            g.drawImage(bufferImage6,410,52,null);
         }if(rB5.isSelected()){
-            g.drawImage(bufferImage6,305,538,null);
+            g.drawImage(bufferImage6,410,30,null);
+            
         }
     }//paint
     
@@ -249,6 +274,11 @@ public class PlayWindow extends JFrame {
 
         jbSimulation.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/simulation1.jpg"))); // NOI18N
         jbSimulation.setBorder(null);
+        jbSimulation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSimulationActionPerformed(evt);
+            }
+        });
 
         jbRevert.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/revert1.jpg"))); // NOI18N
         jbRevert.setBorder(null);
@@ -307,12 +337,10 @@ public class PlayWindow extends JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jlSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jlSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(comboSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(comboSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33)
                 .addComponent(jlBarrier)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -383,19 +411,19 @@ public class PlayWindow extends JFrame {
     
     private void jcheckImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcheckImageActionPerformed
           
-        jbCreate.setEnabled(true);
-        jlBarrier.setEnabled(true);
-        rB1.setEnabled(true);
-        rB2.setEnabled(true);
-        rB3.setEnabled(true);
-        rB4.setEnabled(true);
-        rB5.setEnabled(true);
-        jlSpeed.setEnabled(true);
-        jtValue.setEnabled(true);
-        jbRevert.setEnabled(true);
-        jbInterrupt.setEnabled(true);
-        jbSimulation.setEnabled(true);
-        comboSpeed.setEnabled(true);
+//        jbCreate.setEnabled(true);
+//        jlBarrier.setEnabled(true);
+//        rB1.setEnabled(true);
+//        rB2.setEnabled(true);
+//        rB3.setEnabled(true);
+//        rB4.setEnabled(true);
+//        rB5.setEnabled(true);
+//        jlSpeed.setEnabled(true);
+//        jtValue.setEnabled(true);
+//        jbRevert.setEnabled(true);
+//        jbInterrupt.setEnabled(true);
+//        jbSimulation.setEnabled(true);
+//        comboSpeed.setEnabled(true);
     }//GEN-LAST:event_jcheckImageActionPerformed
 
     private void jbCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCreateActionPerformed
@@ -417,17 +445,35 @@ public class PlayWindow extends JFrame {
     private void jbInterruptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInterruptActionPerformed
        
        SquareThreadData s= new SquareThreadData(mysquare, quantity);
-       s.pause=true;
+       s.end=true;
        if(flag!=0)
            s.run();
        else{
        s.pause();
-       s.pause=false;
+       s.end=false;
        flag=1;
        }
       
         
     }//GEN-LAST:event_jbInterruptActionPerformed
+
+    private void jbSimulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSimulationActionPerformed
+        jbCreate.setEnabled(true);
+        jlBarrier.setEnabled(true);
+        rB1.setEnabled(true);
+        rB2.setEnabled(true);
+        rB3.setEnabled(true);
+        rB4.setEnabled(true);
+        rB5.setEnabled(true);
+        jlSpeed.setEnabled(true);
+        jtValue.setEnabled(true);
+        jbRevert.setEnabled(true);
+        jbInterrupt.setEnabled(true);
+        comboSpeed.setEnabled(true);
+        jcheckImage.setEnabled(true);
+        listThread=new RunThreads(myOval, 800);
+        startSimulation=true;
+    }//GEN-LAST:event_jbSimulationActionPerformed
 
     /**
      * @param args the command line arguments
